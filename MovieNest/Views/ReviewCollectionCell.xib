@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0be-3j-CXy">
-                        <rect key="frame" x="0.0" y="0.0" width="464" height="169"/>
+                        <rect key="frame" x="10" y="10" width="454" height="159"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ReviewerName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6r-tG-YPE">
                                 <rect key="frame" x="10.000000000000007" y="0.0" width="125.66666666666669" height="30"/>
@@ -29,7 +29,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPt-MU-Tvo">
-                                <rect key="frame" x="10" y="40" width="444" height="119"/>
+                                <rect key="frame" x="10" y="40" width="434" height="109"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -49,8 +49,8 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="0be-3j-CXy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="74d-mc-yOg"/>
-                <constraint firstItem="0be-3j-CXy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ju8-ki-VAU"/>
+                <constraint firstItem="0be-3j-CXy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Jmh-oi-e7E"/>
+                <constraint firstItem="0be-3j-CXy" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="Kg6-Jo-W26"/>
                 <constraint firstAttribute="bottom" secondItem="0be-3j-CXy" secondAttribute="bottom" id="kZp-tA-MEI"/>
                 <constraint firstAttribute="trailing" secondItem="0be-3j-CXy" secondAttribute="trailing" id="lYI-KO-LdR"/>
             </constraints>

@@ -15,6 +15,8 @@ class DetailPageController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.rowHeight = 200  
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -22,6 +24,10 @@ class DetailPageController: UIViewController{
             UINib(nibName: "InfoTableCell", bundle: nil), forCellReuseIdentifier: "InfoTableCell");
         tableView.register(
             UINib(nibName: "ReviewTableCell", bundle: nil), forCellReuseIdentifier: "ReviewTableCell");
+        tableView.register(
+            UINib(nibName: "CastTableCell", bundle: nil), forCellReuseIdentifier: "CastTableCell");
+        tableView.register(
+            UINib(nibName: "SimilarTableCell", bundle: nil), forCellReuseIdentifier: "SimilarTableCell");
     }
 }
 
@@ -29,7 +35,7 @@ class DetailPageController: UIViewController{
 extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2 // Row 0 for Info, Row 1 for Reviews
+        return 4 // Row 0 for Info, Row 1 for Reviews
     }
     
     
@@ -42,9 +48,17 @@ extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableCell", for: indexPath) as! ReviewTableCell
             return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableCell", for: indexPath) as! CastTableCell
+            return cell
+        case 3:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SimilarTableCell", for: indexPath) as! SimilarTableCell
+            return cell
             
         default:
             return UITableViewCell()
         }
     }
+
+    
 }

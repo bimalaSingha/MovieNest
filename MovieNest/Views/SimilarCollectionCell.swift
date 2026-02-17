@@ -9,6 +9,9 @@ import UIKit
 
 class SimilarCollectionCell: UICollectionViewCell {
 
+    @IBOutlet weak var similarImage: UIImageView!
+    @IBOutlet weak var similarMovie: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
