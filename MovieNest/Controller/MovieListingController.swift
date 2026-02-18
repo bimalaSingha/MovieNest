@@ -16,7 +16,9 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
 //        super.viewWillAppear(animated)
 //        navigationController?.setNavigationBarHidden(true, animated: animated)
 //    } /// hides the nav bar for the entire navigation controller, so we need to unhide in the next page for back button.
-//    
+//
+    
+    var selectedMovieId: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,16 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        print("tapped movie: \(movie.title), id: \(movie.id)")
+        
+        let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as! DetailPageController
+        detailVC.movieId = movie.id
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
+    
     // display movie information
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,6 +53,7 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         cell.titleLabel.text = movie.title
         cell.releaseDate.text = movie.releaseDate
         cell.descriptionLabel.text = movie.overview
+        cell.bookButton.isUserInteractionEnabled = false
         
         // reset image
         cell.movieImageView.image = UIImage(named: "placeholder")
@@ -69,7 +82,8 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
     
     func fetchAllMovies(query: String? = nil) {
 
-        let urlString = Constants().baseURL + Constants().nowPlaying + "?api_key=" + Constants().apiKey
+        let urlString = Constants.baseURL + Constants.nowPlaying + "?api_key=" + Constants.apiKey
+        print("Listing URL: \(urlString)")
         
         guard let url = URL(string: urlString) else { return }
         
@@ -90,7 +104,6 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
             }
         }.resume()
     }
-
     
 }
 

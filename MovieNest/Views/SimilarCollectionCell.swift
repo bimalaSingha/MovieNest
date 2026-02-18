@@ -15,6 +15,8 @@ class SimilarCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        similarImage.layer.cornerRadius = 10
     }
 
 }

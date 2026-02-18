@@ -11,12 +11,13 @@ class CastCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var castImage: UIImageView!
     @IBOutlet weak var castName: UILabel!
-    @IBOutlet weak var castNickNAme: UILabel!
+    @IBOutlet weak var charName: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
 }

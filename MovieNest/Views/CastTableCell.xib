@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ivx-cP-qxC">
-                        <rect key="frame" x="20" y="38" width="243" height="194"/>
+                        <rect key="frame" x="20" y="30" width="253" height="202"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zrS-Nq-q5h">
                             <size key="itemSize" width="128" height="128"/>
@@ -38,13 +38,15 @@
                     </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="ivx-cP-qxC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="FZM-Tg-jPd"/>
-                    <constraint firstItem="ivx-cP-qxC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="19" id="fUZ-XG-W2W"/>
+                    <constraint firstAttribute="trailing" secondItem="ivx-cP-qxC" secondAttribute="trailing" id="Ydu-1R-9As"/>
                     <constraint firstAttribute="trailing" secondItem="bYh-xq-Rjn" secondAttribute="trailing" id="jkF-jR-E1p"/>
                     <constraint firstAttribute="bottom" secondItem="ivx-cP-qxC" secondAttribute="bottom" id="nDX-9u-9rT"/>
                     <constraint firstItem="bYh-xq-Rjn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="pKc-gL-nO5"/>
                     <constraint firstItem="bYh-xq-Rjn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="pOc-b9-uFS"/>
-                    <constraint firstItem="ivx-cP-qxC" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="5" id="psn-Vy-LeZ"/>
+                    <constraint firstItem="ivx-cP-qxC" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" constant="10" id="psn-Vy-LeZ"/>
+                    <constraint firstAttribute="bottom" secondItem="ivx-cP-qxC" secondAttribute="bottom" id="tAM-q6-FfN"/>
+                    <constraint firstItem="ivx-cP-qxC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="yrD-KU-W7Z"/>
+                    <constraint firstItem="ivx-cP-qxC" firstAttribute="top" secondItem="bYh-xq-Rjn" secondAttribute="bottom" id="zYd-J6-IFt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

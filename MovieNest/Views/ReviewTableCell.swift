@@ -19,6 +19,7 @@ class ReviewTableCell: UITableViewCell {
         reviewCollectionView.delegate = self
         
         reviewCollectionView.register(UINib(nibName: "ReviewCollectionCell", bundle: nil), forCellWithReuseIdentifier: "ReviewCollectionCell")
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
