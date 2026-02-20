@@ -29,7 +29,7 @@ struct Movie: Codable {
     }
 }
 
-// Detail endpoint   --- separate struct, has genres
+// Detail endpoint   --- separate struct
 struct MovieDetail: Codable {
     let id: Int
     let title: String
@@ -54,3 +54,36 @@ struct Genre: Codable {
     let name: String
 }
 
+
+
+// Reviews
+struct ReviewResponse: Codable {
+    let results: [Review]
+}
+
+struct Review: Codable {
+    let author: String
+    let content: String
+}
+
+
+
+// movie credits
+struct CreditsResponse: Codable {
+    let cast: [CastMemb]
+}
+
+struct CastMemb: Codable {
+    let name: String
+    let character: String
+    let profilePath: String?
+
+    enum CodingKeys: String, CodingKey {
+        case name, character
+        case profilePath = "profile_path"
+    }
+}
+
+struct SimilarResponse: Codable {
+    let results: [Movie]
+}

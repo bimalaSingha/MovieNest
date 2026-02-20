@@ -23,7 +23,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="etH-C4-XvC">
                                 <rect key="frame" x="10" y="0.0" width="135" height="189"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xaa-IP-LJa">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xaa-IP-LJa">
                                         <rect key="frame" x="0.0" y="0.0" width="135" height="171"/>
                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                     </imageView>

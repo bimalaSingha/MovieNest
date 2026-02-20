@@ -12,6 +12,9 @@ class SimilarTableCell: UITableViewCell {
     @IBOutlet weak var similarLabel: UILabel!
     @IBOutlet weak var similarCollection: UICollectionView!
     
+    
+    var similarMovies: [Movie] = []
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         similarCollection.dataSource = self
@@ -32,12 +35,20 @@ class SimilarTableCell: UITableViewCell {
 extension SimilarTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView:UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return similarMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarCollectionCell", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarCollectionCell", for: indexPath) as! SimilarCollectionCell
+        cell.similarMovie.text = similarMovies[indexPath.item].title
+        if let path = similarMovies[indexPath.item].posterPath {
+            let url = URL(string: "https://image.tmdb.org/t/p/w200\(path)")!
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async { cell.similarImage.image = UIImage(data: data) }
+                }
+            }
+        }
         return cell
     }
 }

@@ -12,6 +12,8 @@ class ReviewTableCell: UITableViewCell {
     @IBOutlet weak var reviewTitleLabel: UILabel!
     @IBOutlet weak var reviewCollectionView: UICollectionView!
     
+    var reviews: [Review] = []
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        
@@ -33,12 +35,13 @@ class ReviewTableCell: UITableViewCell {
 extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return reviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCollectionCell", for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCollectionCell", for: indexPath) as! ReviewCollectionCell
+        cell.reviewerName.text = reviews[indexPath.item].author
+        cell.commentLabel.text = reviews[indexPath.item].content
         return cell
     }
 }

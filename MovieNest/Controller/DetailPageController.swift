@@ -13,6 +13,9 @@ class DetailPageController: UIViewController{
    
     var movieId: Int = 0
     private var movieDetail: MovieDetail?
+    private var reviews: [Review] = []
+    private var cast: [CastMemb] = []
+    private var similarMovies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,24 +38,46 @@ class DetailPageController: UIViewController{
         fetchAllData()
     }
     
-    private func showLoading(_ loading: Bool) {
-        tableView.isHidden = loading
-    }
+//    private func showLoading(_ loading: Bool) {
+//        tableView.isHidden = loading
+//    }
     
     private func fetchAllData() {
         let group = DispatchGroup()
         let api = MovieAPIService.shared
-           
-        
         print("movieId is: \(movieId)")
+        
+        group.enter()
         api.fetchDetail(movieId: movieId) { [weak self] detail in
-                DispatchQueue.main.async {
-                    self?.movieDetail = detail
-                    self?.showLoading(false)
-                    self?.tableView.reloadData()
-                }
+            DispatchQueue.main.async {
+                self?.movieDetail = detail
             }
-       }
+            group.leave()
+        }
+        
+        group.enter()
+        api.fetchReviews(movieId: movieId) { [weak self] reviews in
+            self?.reviews = reviews
+            group.leave()
+        }
+        
+        group.enter()
+        api.fetchCredits(movieId: movieId) { [weak self] cast in
+            self?.cast = cast
+            group.leave()
+        }
+         // similar
+        group.enter()
+        api.fetchSimilar(movieId: movieId) { [weak self] similar in
+            self?.similarMovies = similar
+            group.leave()
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+//            self?.showLoading(false)
+            self?.tableView.reloadData()
+        }
+    }
 
 }
 
@@ -73,7 +98,7 @@ extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
             cell.movieLabel.text = detail.title
             cell.genreLabel.text = detail.genres.map { $0.name }.joined(separator: ", ")
             cell.synopsisLabel.text = detail.overview
-            cell.ratingsLabel.text = String(format: "%.1f", detail.voteAverage)
+            cell.ratingsLabel.text = String(format: "%.1f ratings", detail.voteAverage)
             cell.votesLabel.text = "\(detail.voteCount) votes"
             
             
@@ -93,14 +118,20 @@ extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableCell", for: indexPath) as! ReviewTableCell
+            cell.reviews = reviews
+            cell.reviewCollectionView.reloadData()
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableCell", for: indexPath) as! CastTableCell
+            cell.cast = cast
+            cell.castCollection.reloadData()
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SimilarTableCell", for: indexPath) as! SimilarTableCell
+            cell.similarMovies = similarMovies
+            cell.similarCollection.reloadData()
             return cell
             
         default:
