@@ -38,13 +38,14 @@ class MovieAPIService {
             completion(response?.results ?? [])
         }
     }
+
 }
 
 //  Generic fetch (this will handle all decoding in one place)
  private func fetch<T: Decodable>(_ urlString: String, completion: @escaping (T?) -> Void) {
         guard let url = URL(string: urlString) else {
             print("Invalid URL: \(urlString)")
-            completion(nil)
+            DispatchQueue.main.async{ completion(nil) }
             return
         }
 

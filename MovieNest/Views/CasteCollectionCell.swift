@@ -19,5 +19,10 @@ class CastCollectionCell: UICollectionViewCell {
         // Initialization code
         
     }
+    
+    func configurationCell(){
+        
+    }
+
 
 }

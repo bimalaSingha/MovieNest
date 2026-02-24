@@ -18,23 +18,37 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
 //    } /// hides the nav bar for the entire navigation controller, so we need to unhide in the next page for back button.
 //
     
+    private var viewModel = MovieListingViewModel()
+    
     var selectedMovieId: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self  // for data
         tableView.delegate = self
+        bindViewModel()
         
-        fetchAllMovies()
+        viewModel.fetchAllMovies()
+
+    }
+    
+   // binding part      when the viewmodel gets new data
+    func bindViewModel() {
+        viewModel.onMoviesUpdated = { [weak self] in
+            self?.tableView.reloadData()
+        }
+        viewModel.onError = { message in
+            print("Error: \(message)")
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return viewModel.movies.count
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
+        let movie = viewModel.movies[indexPath.row]
         print("tapped movie: \(movie.title), id: \(movie.id)")
         
         let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as! DetailPageController
@@ -42,14 +56,13 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    
     // display movie information
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",  for: indexPath) as! MovieCell
         
         //    since TMDB won't give a full image URL, we have to build the full URL yourself.
-        let movie = movies[indexPath.row]
+        let movie = viewModel.movies[indexPath.row]
         cell.titleLabel.text = movie.title
         cell.releaseDate.text = movie.releaseDate
         cell.descriptionLabel.text = movie.overview
@@ -59,7 +72,10 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         cell.movieImageView.image = UIImage(named: "placeholder")
         
         if let path = movie.posterPath {
-            let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500\(path)")!
+            
+            let imageString = Constants.imageBase + path
+            guard let imageUrl = URL(string: imageString) else { return cell }
+
             
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: imageUrl) {
@@ -72,37 +88,7 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-        
         return cell
-    }
-    
-    
-    // below will Fetch and Refresh the data
-    var movies: [Movie] = []     // the data source
-    
-    func fetchAllMovies(query: String? = nil) {
-
-        let urlString = Constants.baseURL + Constants.nowPlaying + "?api_key=" + Constants.apiKey
-        print("Listing URL: \(urlString)")
-        
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data, error == nil else {
-                print("error fetching data: \(error?.localizedDescription ?? "unknown error")")
-                return
-            }
-            do {
-                let response = try JSONDecoder().decode(MovieResponse.self, from: data)
-                DispatchQueue.main.async {
-                    // Update data source and reload the UI
-                    self.movies = response.results
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Decoding error: \(error)")
-            }
-        }.resume()
     }
     
 }
