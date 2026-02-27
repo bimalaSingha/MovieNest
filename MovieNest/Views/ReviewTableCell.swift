@@ -30,6 +30,10 @@ class ReviewTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configureReview(with reviews: [Review]) {
+        self.reviews = reviews
+        reviewCollectionView.reloadData()
+    }
 }
 
 extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -40,8 +44,10 @@ extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCollectionCell", for: indexPath) as! ReviewCollectionCell
-        cell.reviewerName.text = reviews[indexPath.item].author
-        cell.commentLabel.text = reviews[indexPath.item].content
+        
+        cell.configureReview(with: reviews[indexPath.item])
+//        cell.reviewerName.text = reviews[indexPath.item].author
+//        cell.commentLabel.text = reviews[indexPath.item].content
         return cell
     }
 }

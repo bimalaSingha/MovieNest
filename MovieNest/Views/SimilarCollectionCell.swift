@@ -18,5 +18,14 @@ class SimilarCollectionCell: UICollectionViewCell {
         
         similarImage.layer.cornerRadius = 10
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        similarImage.image = nil
+    }
 
+    func configureSimilar(with movie: Movie) {
+        similarMovie.text = movie.title
+        ImageLoad.loadImage(into: similarImage, from: movie.posterPath)
+    }
 }

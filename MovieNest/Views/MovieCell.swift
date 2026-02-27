@@ -20,5 +20,4 @@ class MovieCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    
 }

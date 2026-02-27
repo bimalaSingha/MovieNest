@@ -18,5 +18,10 @@ class ReviewCollectionCell: UICollectionViewCell {
         // Initialization code
         reviewView.layer.cornerRadius = 10
     }
+    
+    func configureReview(with review: Review) {
+        reviewerName.text = review.author
+        commentLabel.text = review.content
+    }
 
 }

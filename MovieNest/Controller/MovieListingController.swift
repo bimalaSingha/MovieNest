@@ -12,12 +12,6 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchView: UISearchBar!
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
-//    } /// hides the nav bar for the entire navigation controller, so we need to unhide in the next page for back button.
-//
-    
     private var viewModel = MovieListingViewModel()
     
     var selectedMovieId: Int = 0
@@ -71,23 +65,7 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         // reset image
         cell.movieImageView.image = UIImage(named: "placeholder")
         
-        if let path = movie.posterPath {
-            
-            let imageString = Constants.imageBase + path
-            guard let imageUrl = URL(string: imageString) else { return cell }
-
-            
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: imageUrl) {
-                    DispatchQueue.main.async {
-                        // this sets the image only if the cell is showing the movie
-                        if let updateCell = tableView.cellForRow(at: indexPath) as? MovieCell {
-                            updateCell.movieImageView.image = UIImage(data: data)
-                        }
-                    }
-                }
-            }
-        }
+        ImageLoad.loadImage(into: cell.movieImageView, from: movie.posterPath)
         return cell
     }
     

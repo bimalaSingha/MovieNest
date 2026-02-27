@@ -20,9 +20,15 @@ class CastCollectionCell: UICollectionViewCell {
         
     }
     
-    func configurationCell(){
-        
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        castImage.image = nil
     }
-
-
+    
+    func configureCast(with cast: CastMemb){
+        castName.text = cast.name
+        charName.text = cast.character
+        
+        ImageLoad.loadImage(into: castImage, from: cast.profilePath)
+    }
 }

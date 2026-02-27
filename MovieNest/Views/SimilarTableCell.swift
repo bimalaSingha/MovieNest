@@ -23,11 +23,10 @@ class SimilarTableCell: UITableViewCell {
         similarCollection.register(UINib(nibName: "SimilarCollectionCell", bundle: nil), forCellWithReuseIdentifier: "SimilarCollectionCell")
         
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func configureSimilar(with movies: [Movie]) {
+        self.similarMovies = movies
+        similarCollection.reloadData()
     }
     
 }
@@ -40,15 +39,7 @@ extension SimilarTableCell: UICollectionViewDataSource, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarCollectionCell", for: indexPath) as! SimilarCollectionCell
-        cell.similarMovie.text = similarMovies[indexPath.item].title
-        if let path = similarMovies[indexPath.item].posterPath {
-            let url = URL(string: "https://image.tmdb.org/t/p/w200\(path)")!
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async { cell.similarImage.image = UIImage(data: data) }
-                }
-            }
-        }
+        cell.configureSimilar(with: similarMovies[indexPath.item])
         return cell
     }
 }

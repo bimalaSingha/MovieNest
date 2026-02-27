@@ -15,7 +15,6 @@ class MovieListingViewModel {
     var onMoviesUpdated: (() -> Void)?  // as viewmodel is not allowed to talk to the tableView directly, we needs a way to say that it has the movie data, when this is called tableView.reloadData() is run
     var onError: ((String) -> Void)?  // if something goes wrong because of wrong api key/ poor connection, the viewmodel knows first. then it informs vc.
 
-    // Fetch
     // below will Fetch and Refresh the data
 //    var movies: [Movie] = []     // the data source
     
@@ -41,10 +40,8 @@ class MovieListingViewModel {
             do {
                 let response = try JSONDecoder().decode(MovieResponse.self, from: data)
                 DispatchQueue.main.async {
-                    // Update data source and reload the UI
-                    self.movies = response.results
-//                    self.tableView.reloadData()
-                    self.onMoviesUpdated?()
+                    self.movies = response.results // data source update
+                    self.onMoviesUpdated?()   // reload ui
                 }
             } catch {
                 print("Decoding error: \(error)")

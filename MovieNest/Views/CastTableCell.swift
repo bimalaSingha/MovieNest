@@ -23,11 +23,11 @@ class CastTableCell: UITableViewCell {
         castCollection.register(UINib(nibName: "CastCollectionCell", bundle: nil), forCellWithReuseIdentifier: "CastCollectionCell")
         
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    /// this func is called from the controller instead of setting cast and calling reloadData manually.
+    func configureCast(with cast: [CastMemb]) {
+        self.cast = cast
+        castCollection.reloadData()
     }
     
 }
@@ -40,17 +40,8 @@ extension CastTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionCell", for: indexPath) as! CastCollectionCell
-        cell.castName.text = cast[indexPath.item].name
-        cell.charName.text = cast[indexPath.item].character
         
-        if let path = cast[indexPath.item].profilePath {
-            let url = URL(string: "https://image.tmdb.org/t/p/w200\(path)")!
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url) {
-                    DispatchQueue.main.async { cell.castImage.image = UIImage(data: data) }
-                }
-            }
-        }
+        cell.configureCast(with: cast[indexPath.item])
         return cell
     }
 }
