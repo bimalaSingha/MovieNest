@@ -73,22 +73,19 @@ extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewTableCell", for: indexPath) as! ReviewTableCell
             cell.configureReview(with: viewModel.reviews)
-//            cell.reviews = reviews
-//            cell.reviewCollectionView.reloadData()
+
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableCell", for: indexPath) as! CastTableCell
             cell.configureCast(with: viewModel.cast)
-//            cell.cast = cast
-//            cell.castCollection.reloadData()
+
             return cell
             
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SimilarTableCell", for: indexPath) as! SimilarTableCell
             cell.configureSimilar(with: viewModel.similarMovies)
-//            cell.similarMovies = similarMovies
-//            cell.similarCollection.reloadData()
+
             return cell
             
         default:

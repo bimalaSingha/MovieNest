@@ -13,7 +13,6 @@ class CastTableCell: UITableViewCell {
     @IBOutlet weak var castCollection: UICollectionView!
     
     var cast: [CastMemb] = []
-//    var castTableVM: CastTableVM?
     
     override func awakeFromNib() {
         super.awakeFromNib()

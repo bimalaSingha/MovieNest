@@ -51,8 +51,7 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",  for: indexPath) as! MovieCell
-        
-        //    since TMDB won't give a full image URL, we have to build the full URL yourself.
+
         let movie = viewModel.cellViewModel(at: indexPath.row)
         cell.configureMovie(with: movie)
         
