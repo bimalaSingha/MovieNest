@@ -40,13 +40,10 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         return viewModel.movies.count
     }
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = viewModel.movies[indexPath.row]
-        print("tapped movie: \(movie.title), id: \(movie.id)")
-        
-        let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as! DetailPageController
-        detailVC.movieId = movie.id
+    func navigateToDetail(movieId: Int) {
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "DetailPageController") as? DetailPageController
+        else { return }
+        detailVC.movieId = movieId
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -56,16 +53,14 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell",  for: indexPath) as! MovieCell
         
         //    since TMDB won't give a full image URL, we have to build the full URL yourself.
-        let movie = viewModel.movies[indexPath.row]
-        cell.titleLabel.text = movie.title
-        cell.releaseDate.text = movie.releaseDate
-        cell.descriptionLabel.text = movie.overview
-        cell.bookButton.isUserInteractionEnabled = false
+        let movie = viewModel.cellViewModel(at: indexPath.row)
+        cell.configureMovie(with: movie)
         
-        // reset image
-        cell.movieImageView.image = UIImage(named: "placeholder")
-        
-        ImageLoad.loadImage(into: cell.movieImageView, from: movie.posterPath)
+//        ImageLoad.loadImage(into: cell.movieImageView, from: movie.posterPath)
+        cell.onBookTapped = { [weak self] in        // ← add this
+                self?.navigateToDetail(movieId: movie.movieId)
+        }
+    
         return cell
     }
     

@@ -17,6 +17,11 @@ class MovieListingViewModel {
 
     // below will Fetch and Refresh the data
 //    var movies: [Movie] = []     // the data source
+    //MARK: - Computed properties
+        func cellViewModel(at index: Int) -> MovieCellViewModel {
+            return MovieCellViewModel(movie: movies[index])
+        }
+    
     
     func fetchAllMovies(query: String? = nil) {
 
@@ -48,5 +53,23 @@ class MovieListingViewModel {
                 self.onError?("Decoding error: \(error.localizedDescription)")
             }
         }.resume()
+    }
+}
+
+
+
+//// this is for the table cell in Listing page
+
+class MovieCellViewModel {
+    private let movie: Movie
+
+    var title: String       { movie.title }
+    var releaseDate: String? { movie.releaseDate }
+    var overview: String    { movie.overview }
+    var posterPath: String? { movie.posterPath }
+    var movieId: Int        { movie.id }
+
+    init(movie: Movie) {
+        self.movie = movie
     }
 }

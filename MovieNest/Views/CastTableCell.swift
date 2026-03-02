@@ -13,6 +13,7 @@ class CastTableCell: UITableViewCell {
     @IBOutlet weak var castCollection: UICollectionView!
     
     var cast: [CastMemb] = []
+//    var castTableVM: CastTableVM?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,7 +42,12 @@ extension CastTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CastCollectionCell", for: indexPath) as! CastCollectionCell
         
-        cell.configureCast(with: cast[indexPath.item])
+//        cell.configureCast(with: cast[indexPath.item])
+        
+        let castMember = cast[indexPath.item]
+        let vm = CastCollectionVM(cast: castMember)
+        cell.configureCast(with: vm)
+        
         return cell
     }
 }

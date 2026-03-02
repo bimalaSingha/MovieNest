@@ -47,7 +47,7 @@
                                                                 <color key="baseForegroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </buttonConfiguration>
                                                             <connections>
-                                                                <segue destination="Nfd-gQ-zlh" kind="show" identifier="showDetail" id="YJX-EC-Yij"/>
+                                                                <action selector="bookButton:" destination="iZS-KT-SIZ" eventType="touchUpInside" id="bAy-m3-wss"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -100,7 +100,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="bookButton" destination="MyH-cm-tCr" id="WNw-Fx-N2g"/>
                                             <outlet property="descriptionLabel" destination="KEe-Tc-Mmp" id="ZDV-4w-P6K"/>
                                             <outlet property="movieImageView" destination="tcF-iJ-Cbw" id="yg9-0v-Ldi"/>
                                             <outlet property="releaseDate" destination="iiu-aR-Wux" id="tln-JX-2On"/>

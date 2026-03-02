@@ -25,10 +25,16 @@ class CastCollectionCell: UICollectionViewCell {
         castImage.image = nil
     }
     
-    func configureCast(with cast: CastMemb){
-        castName.text = cast.name
-        charName.text = cast.character
-        
-        ImageLoad.loadImage(into: castImage, from: cast.profilePath)
+//    func configureCast(with cast: CastMemb){
+//        castName.text = cast.name
+//        charName.text = cast.character
+//        
+//        ImageLoad.loadImage(into: castImage, from: cast.profilePath)
+//    }
+    
+    func configureCast(with vm: CastCollectionVM){
+        castName.text = vm.name
+        charName.text = vm.character
+        ImageLoad.loadImage(into: castImage, from: vm.profilePath)
     }
 }

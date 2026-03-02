@@ -45,7 +45,12 @@ extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewCollectionCell", for: indexPath) as! ReviewCollectionCell
         
-        cell.configureReview(with: reviews[indexPath.item])
+//        cell.configureReview(with: reviews[indexPath.item])
+        
+        let review = reviews[indexPath.item]
+        let vm = ReviewCollectionVM(review: review)
+        cell.configureReview(with: vm)
+        
 //        cell.reviewerName.text = reviews[indexPath.item].author
 //        cell.commentLabel.text = reviews[indexPath.item].content
         return cell
