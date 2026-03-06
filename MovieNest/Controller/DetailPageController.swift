@@ -48,13 +48,29 @@ class DetailPageController: UIViewController{
 
 extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4 // Row 0 for Info, Row 1 for Reviews
+    private var rowsVisible: [Int] {
+        var rows: [Int] = [0,2]
+        // if movie synopsis is present then cast will always be there.
+//        rows.append(0)
+        
+        if viewModel.reviewTableVM.count > 0 { rows.insert(1, at: 1) } /// here append(1) will lofically fail as array would look like this: [0,2,1] and reviews section will go to the 3rd section
+        
+//        if viewModel.reviewTableVM.count > 0 { rows.append(1) }
+//        rows.append(2)
+        if viewModel.similarTableVM.count > 0 { rows.append(3) }
+        
+        return rows
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 4 // Row 0 for Info, Row 1 for Reviews
+        return rowsVisible.count
+    }
     
+       
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        let row = rowsVisible[indexPath.row]
+        switch row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "InfoTableCell", for: indexPath) as! InfoTableCell
             guard let detail = viewModel.movieDetail else {return cell }

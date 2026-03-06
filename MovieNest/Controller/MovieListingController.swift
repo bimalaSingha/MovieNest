@@ -54,9 +54,7 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
 
         let movie = viewModel.cellViewModel(at: indexPath.row)
         cell.configureMovie(with: movie)
-        
-//        ImageLoad.loadImage(into: cell.movieImageView, from: movie.posterPath)
-        cell.onBookTapped = { [weak self] in        // ← add this
+        cell.onBookTapped = { [weak self] in
                 self?.navigateToDetail(movieId: movie.movieId)
         }
     
