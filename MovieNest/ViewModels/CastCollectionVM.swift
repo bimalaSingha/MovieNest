@@ -10,7 +10,6 @@ import Foundation
 class CastCollectionVM {
     private let cast: CastMemb
 
-    // Exposed display properties
     var name: String { cast.name }
     var character: String { cast.character }
     var profilePath: String? { cast.profilePath }

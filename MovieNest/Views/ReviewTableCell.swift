@@ -12,7 +12,8 @@ class ReviewTableCell: UITableViewCell {
     @IBOutlet weak var reviewTitleLabel: UILabel!
     @IBOutlet weak var reviewCollectionView: UICollectionView!
     
-    var reviews: [Review] = []
+//    var reviews: [Review] = []
+    private var reviewTableVM : ReviewTableVM?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,8 +31,8 @@ class ReviewTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureReview(with reviews: [Review]) {
-        self.reviews = reviews
+    func configure(with vm: ReviewTableVM) {
+        reviewTableVM = vm
         reviewCollectionView.reloadData()
     }
 }
@@ -39,7 +40,8 @@ class ReviewTableCell: UITableViewCell {
 extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return reviews.count
+//        return reviews.count
+        return reviewTableVM?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -47,12 +49,13 @@ extension ReviewTableCell: UICollectionViewDataSource, UICollectionViewDelegate 
         
 //        cell.configureReview(with: reviews[indexPath.item])
         
-        let review = reviews[indexPath.item]
-        let vm = ReviewCollectionVM(review: review)
-        cell.configureReview(with: vm)
+//        let review = reviews[indexPath.item]
+//        let vm = ReviewCollectionVM(review: review)
+//        cell.configureReview(with: vm)
         
-//        cell.reviewerName.text = reviews[indexPath.item].author
-//        cell.commentLabel.text = reviews[indexPath.item].content
+        if let vm = reviewTableVM?.reviewVM(at: indexPath.item){
+            cell.configureReview(with: vm)
+        }
         return cell
     }
 }

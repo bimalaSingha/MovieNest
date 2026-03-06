@@ -24,7 +24,8 @@ class SimilarCollectionCell: UICollectionViewCell {
         similarImage.image = nil
     }
 
-    func configureSimilar(with vm: Movie) {
+//    func configureSimilar(with vm: Movie) {
+    func configureSimilar(with vm: SimilarCollectionVM) {
         similarMovie.text = vm.title
         ImageLoad.loadImage(into: similarImage, from: vm.posterPath)
     }

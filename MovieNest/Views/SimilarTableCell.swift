@@ -13,7 +13,9 @@ class SimilarTableCell: UITableViewCell {
     @IBOutlet weak var similarCollection: UICollectionView!
     
     
-    var similarMovies: [Movie] = []
+//    var similarMovies: [Movie] = []
+    
+    private var similarTableVM: SimilarTableVM?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,8 +26,13 @@ class SimilarTableCell: UITableViewCell {
         
     }
     
-    func configureSimilar(with movies: [Movie]) {
-        self.similarMovies = movies
+//    func configureSimilar(with movies: [Movie]) {
+//        self.similarMovies = movies
+//        similarCollection.reloadData()
+//    }
+    
+    func configure(with vm: SimilarTableVM) {
+        similarTableVM = vm
         similarCollection.reloadData()
     }
     
@@ -34,12 +41,16 @@ class SimilarTableCell: UITableViewCell {
 extension SimilarTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView:UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return similarMovies.count
+        return similarTableVM?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SimilarCollectionCell", for: indexPath) as! SimilarCollectionCell
-        cell.configureSimilar(with: similarMovies[indexPath.item])
+//        cell.configureSimilar(with: similarMovies[indexPath.item])
+        if let vm = similarTableVM?.similarVM(at: indexPath.item) {
+            cell.configureSimilar(with: vm)
+        }
+        
         return cell
     }
 }
