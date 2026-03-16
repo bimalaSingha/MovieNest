@@ -136,11 +136,12 @@
                     <connections>
                         <outlet property="searchView" destination="8TK-OK-7uY" id="Waw-aG-MJJ"/>
                         <outlet property="tableView" destination="RJY-M1-EYD" id="cls-w1-qex"/>
+                        <segue destination="C8x-Lm-6cy" kind="show" identifier="toSearch" id="iQ5-ob-Sj1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1753.4351145038167" y="117.60563380281691"/>
+            <point key="canvasLocation" x="1921" y="118"/>
         </scene>
         <!--Detail Page Controller-->
         <scene sceneID="2Jc-lb-CGT">
@@ -166,7 +167,85 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QLj-YX-BXW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2770" y="118"/>
+            <point key="canvasLocation" x="3059" y="-254"/>
+        </scene>
+        <!--Search Controller-->
+        <scene sceneID="gFe-j9-6RB">
+            <objects>
+                <viewController id="C8x-Lm-6cy" customClass="SearchController" customModule="MovieNest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zLk-oG-KD9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tfN-g8-SyZ">
+                                <rect key="frame" x="0.0" y="225" width="393" height="627"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchResultCell" rowHeight="56" id="vW0-9K-UQj" customClass="SearchResultCell" customModule="MovieNest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vW0-9K-UQj" id="Txf-Jz-2p4">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qvt-cl-BfQ">
+                                                    <rect key="frame" x="20" y="5" width="40" height="46"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="8L7-G7-Z7w"/>
+                                                        <constraint firstAttribute="width" constant="40" id="Kyj-NY-SGN"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="searchedMovie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCn-80-R8O">
+                                                    <rect key="frame" x="75" y="15" width="102.66666666666669" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qvt-cl-BfQ" secondAttribute="bottom" constant="5" id="8pm-OO-Sj7"/>
+                                                <constraint firstItem="qvt-cl-BfQ" firstAttribute="top" secondItem="Txf-Jz-2p4" secondAttribute="top" constant="5" id="y3a-b6-FTy"/>
+                                                <constraint firstItem="qvt-cl-BfQ" firstAttribute="leading" secondItem="Txf-Jz-2p4" secondAttribute="leading" constant="20" id="yl5-qw-tx7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="posterImageView" destination="qvt-cl-BfQ" id="xOv-z8-xhS"/>
+                                            <outlet property="titleLabel" destination="DCn-80-R8O" id="eVL-i3-h3V"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PGQ-l9-Jkd">
+                                <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="C8x-Lm-6cy" id="N0h-rw-zNR"/>
+                                </connections>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Searched" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CUi-iR-Kkv">
+                                <rect key="frame" x="16" y="173" width="361" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kEw-5L-I7q"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fzn-p4-knB"/>
+                    <connections>
+                        <outlet property="searchBar" destination="PGQ-l9-Jkd" id="4ie-Ng-iEK"/>
+                        <outlet property="searchLabel" destination="CUi-iR-Kkv" id="tsI-hT-2hj"/>
+                        <outlet property="searchTableView" destination="tfN-g8-SyZ" id="2rL-E1-thZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j6k-qd-IwK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2926" y="490"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4ZQ-3z-Ikr">

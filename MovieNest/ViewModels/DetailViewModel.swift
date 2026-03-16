@@ -7,7 +7,13 @@
 
 import Foundation
 
+protocol DetailViewModelDelegate: AnyObject {
+    func didLoadAllData()
+    func didReceiveError(_ message: String)
+}
+
 class DetailViewModel {
+    weak var delegate: DetailViewModelDelegate?
 
     //the Controller binds to these
     var onDataReady: (() -> Void)?
@@ -64,7 +70,8 @@ class DetailViewModel {
         }
 
         group.notify(queue: .main) { [weak self] in
-            self?.onDataReady?()
+//            self?.onDataReady?()
+            self?.delegate?.didLoadAllData()
         }
     }
 }

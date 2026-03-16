@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MovieListingController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class MovieListingController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MovieListingViewModelDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchView: UISearchBar!
@@ -20,21 +20,21 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         tableView.dataSource = self  // for data
         tableView.delegate = self
-        bindViewModel()
-        
+//        bindViewModel()
+        viewModel.delegate = self
+        searchView.delegate = self
         viewModel.fetchAllMovies()
 
     }
     
-   // binding part      when the viewmodel gets new data
-    func bindViewModel() {
-        viewModel.onMoviesUpdated = { [weak self] in
-            self?.tableView.reloadData()
-        }
-        viewModel.onError = { message in
-            print("Error: \(message)")
-        }
+//  Controller conforms to this protocol
+    func didUpdateMovies() {
+        tableView.reloadData()
     }
+    func didReceiveError(_ message: String) {
+        print("Error: \(message)")
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.movies.count
@@ -61,6 +61,24 @@ class MovieListingController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
     
+    // search func --- this will fire on every keystroke
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        viewModel.filterMovies(query: searchText)
+//    }
+    
+    // this will land on searchPage instead of listingPage via segue
+    func searchBarShouldBeginEditing(_ searchView: UISearchBar) -> Bool {
+        performSegue(withIdentifier: "toSearch", sender: nil)
+        return false    // false bcoz it cancels the keyboard opening behaviour on the listing screen
+    }
+    
+    // this will pass the movie list to SearchController before the segue fires
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSearch",
+           let searchVC = segue.destination as? SearchController {
+            searchVC.viewModel.allMovies = viewModel.movies
+        }
+    }
 }
 
 

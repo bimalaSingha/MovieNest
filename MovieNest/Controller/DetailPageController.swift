@@ -31,17 +31,17 @@ class DetailPageController: UIViewController{
         tableView.register(
             UINib(nibName: "SimilarTableCell", bundle: nil), forCellReuseIdentifier: "SimilarTableCell");
         
-        bindViewModel()
+        viewModel.delegate = self
         viewModel.fetchAllData(for: movieId)
     }
-    
-    func bindViewModel() {
-        viewModel.onDataReady = { [weak self] in
-            self?.tableView.reloadData()
-        }
-        viewModel.onError = { message in
-            print("Detail error: \(message)")
-        }
+}
+
+extension DetailPageController: DetailViewModelDelegate {
+    func didLoadAllData() {
+        tableView.reloadData()
+    }
+    func didReceiveError(_ message: String) {
+        print("detail error: \(message)")
     }
 }
 
@@ -49,14 +49,10 @@ class DetailPageController: UIViewController{
 extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
    
     private var rowsVisible: [Int] {
-        var rows: [Int] = [0,2]
-        // if movie synopsis is present then cast will always be there.
-//        rows.append(0)
-        
-        if viewModel.reviewTableVM.count > 0 { rows.insert(1, at: 1) } /// here append(1) will lofically fail as array would look like this: [0,2,1] and reviews section will go to the 3rd section
-        
-//        if viewModel.reviewTableVM.count > 0 { rows.append(1) }
-//        rows.append(2)
+        var rows: [Int] = []
+        rows.append(0)
+        if viewModel.reviewTableVM.count > 0 { rows.append(1) }
+        rows.append(2)
         if viewModel.similarTableVM.count > 0 { rows.append(3) }
         
         return rows
@@ -94,7 +90,6 @@ extension DetailPageController: UITableViewDataSource, UITableViewDelegate {
             
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CastTableCell", for: indexPath) as! CastTableCell
-//            cell.configureCast(with: viewModel.cast)
             cell.configure(with: viewModel.castTableVM)
 
             return cell
